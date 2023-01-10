@@ -12,10 +12,10 @@ if (isset($_POST['Submit'])) {
     $tgl_lahir = $_POST['tgl_lahir'];
 
     // Syntax untuk menambahkan data ke table mahasiswa
-    $result = mysqli_query($con, "INSERT INTO mahasiswa(nim, nama, jenis_kelamin, alamat, tgl_lahir) VALUES('$nim','$nama', '$jenis_kelamin','$alamat','$tgl_lahir')");
+    $result = mysqli_query($con, "INSERT INTO krs(id_mhs, id_matkul, nilai) VALUES('$nim','$nama', '$jenis_kelamin','$alamat','$tgl_lahir')");
 
     // Menampilkan pesan jika data berhasil disimpan.
-    echo "Data berhasil disimpan. <a href='index.php'>View Users</a>";
+    echo "Data berhasil disimpan. <a href='login.php'>Home</a>";
     exit();
 }
 ?>
