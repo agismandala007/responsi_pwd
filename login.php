@@ -1,7 +1,26 @@
 <?php
     include_once("koneksi.php");
 
-    $result = mysqli_query($conn, "SELECT * FROM mahasiswa ");
+    $nim = $_POST['nim'];
+    $in_pass = $_POST['password'];
+
+
+    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nim = $nim AND pass = $in_pass");
+    if(isset($result)){
+        echo "<h2>Password atau nim yang anda masukan salah</h2>";
+        echo "<a href='index.html'>Coba lagi</a>";
+    }else{
+
+        while($user_data = mysqli_fetch_array($result)){
+            $user = $user_data['nama'];
+            $id = $user_data['id'];
+        }
+    }
+
+    // $krs = mysqli_query($conn, "SELECT * FROM khs, mata_kuliah WHERE khs.id_mhs = $id, khs.id_matkul = mata_kuliah.id");
+    $krs = mysqli_query($conn, "SELECT mata_kuliah.kode, mata_kuliah.nama, mata_kuliah.sks, khs.nilai FROM khs INNER JOIN mahasiswa ON mahasiswa.id = khs.id_mhs INNER JOIN mata_kuliah ON khs.id_matkul = mata_kuliah.id WHERE mahasiswa.nim = $id");
+
+
 ?>
 <html>
 
@@ -14,27 +33,16 @@
 
 <body>
     <a href="tambah.php">Tambah Data Baru</a> | <a href="cari_mhs.php">Cari Mahasiswa</a> | <a href="cetak_mhs.php">Cetak Mahasiswa</a><br /><br /><br /><br />
-    <table width='80%' border=1>
-        <tr>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Jenis Kelamin</th>
-            <th>Alamat</th>
-            <th>Tanggal Lahir</th>
-            <th>Update</th>
-        </tr>
-        <?php
-            while ($user_data = mysqli_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>" . $user_data['nim'] . "</td>";
-                echo "<td>" . $user_data['nama'] . "</td>";
-                echo "<td>" . $user_data['jenis_kelamin'] . "</td>";
-                echo "<td>" . $user_data['alamat'] . "</td>";
-                echo "<td>" . $user_data['tgl_lahir'] . "</td>";
-                echo "<td><a href='editkrs.php?id=$user_data[id]'>Edit</a> | <a href='delete.php?id=$user_data[id]'>Delete</a></td></tr>";
-            }
-        ?>
-    </table>
+    <?php 
+        echo "<h2> Nim : " . $nim . "<h2>";
+        echo "<h2> Nama : " . $user . "<h2>";
+        while($user_krs = mysqli_fetch_array($krs)){
+            echo $user_krs['kode'] . "<br>";
+            echo $user_krs['nama'] . "<br>";
+            echo $user_krs['nilai'] . "<br>";
+        }?>
+
+        <a href="editkrs.php?nim=$nim"> Edit </a> | <a href="cetak.php"> Cetak </a> | <a href="delete.php">Delete</a>
 </body>
 
 </html>

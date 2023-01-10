@@ -1,3 +1,24 @@
+<?php
+    include_once("koneksi.php")
+
+    if (isset($_POST['Submit'])) {
+        // Variable untuk menampung data $_POST yang dikirimkan melalui form.
+        $nim = $_POST['nim'];
+        $nama = $_POST['nama'];
+        $jenis_kelamin = $_POST['jenis_kelamin'];
+        $alamat = $_POST['alamat'];
+        $tgl_lahir = $_POST['tgl_lahir'];
+    
+        // Syntax untuk menambahkan data ke table mahasiswa
+        $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass) VALUES ($nim, $nama, $jenis_kelamin, $alamat, $tgl_lahir, $pass)");
+    
+        // Menampilkan pesan jika data berhasil disimpan.
+        echo "Data berhasil disimpan. <a href='index.php'>View Users</a>";
+        exit();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,21 +31,18 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
-        <input type="email" name="input_email" id="input_email" placeholder="Email...">
-        <input type="text" name="input_name" id="input_name" placeholder="Nama...">
-        <input type="password" name="input_pass" id="input_pass" placeholder="Password...">
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Jenis Kelamin</a>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><input class="dropdown-item" type="radio" name="input_jenis" value="L"><label for="L">Laki-laki </label></li>
-                <li><input class="dropdown-item" type="radio" name="input_jenis" value="P"><label for="P">Perempuan </label></li>
-            </ul>
-        </div>
-        <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat...">
-
-
+    <a href="login.php">Home</a>
+    <h2>Daftar</h2>
+    <form action="daftar.php" method="post">
+        <input type="number" name="nim" id="nim" placeholder="Nim...">
+        <input type="text" name="nama" id="nama" placeholder="Nama...">
+        <input type="text">
+        <select name="radio" id="radio-dropdown"><br>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+        </select>
+        <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat..."><br>
+        <button type="submit">Daftar</button>
     </form>
 </body>
 </html>
