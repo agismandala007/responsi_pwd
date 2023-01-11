@@ -5,7 +5,13 @@
     $nim = $_POST['nim'];
     $pass = $_POST['password'];
 
-    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nim=$nim");
+    if($_POST['captha_code'] == $_SESSION['captcha_code']){
+        $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nim=$nim");
+    }else{
+        echo "<h2>Captha salah !!</h2>";
+        echo "<a href='index.html'>Login</a>";
+    }
+    
     
     if(mysqli_num_rows($result) > 0){
         $user_data = mysqli_fetch_array($result);
@@ -18,10 +24,12 @@
             }
             
         }else{
-            header("Location: index.html");
+            echo "<h2>Password yang anda masukan salh</h2>";
+            echo "<a href='index.html'>Login</a>";
         }
     }else{
-        header("Location: index.html");
+        echo "<h2>Nim tidak ditemukan!!</h2>";
+        echo "<a href='index.html'>Login</a>";
     }
 
 ?>

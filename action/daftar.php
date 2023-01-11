@@ -1,6 +1,19 @@
 <?php
-    include_once("../koneksi.php")
+    include_once("../koneksi.php");
 
+
+    if (isset($_POST['submit'])) {
+        $nim = $_POST['nim'];
+        $nama = $_POST['nama'];
+        $pass = $_POST['pass'];
+        $jenis_kelamin = $_POST['gender'];
+        $alamat = $_POST['alamat'];
+        $tgl_lahir = $_POST['tgl_lahir'];
+        $level = "Mahasiswa";
+    
+        $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass, level_akun) VALUES ('$nim', '$nama', '$jenis_kelamin', '$alamat', '$tgl_lahir', '$pass', '$level')");
+        echo "Data berhasil disimpan. <a href='../index.html'>Login</a>";
+    }
 
 ?>
 
@@ -27,53 +40,68 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
         <form class="d-flex" role="search">
-            <a href="../index.php" class="btn btn-primary">Home</a>
+            <a href="../index.html" class="btn btn-primary">Home</a>
         </form>
         </div>
     </div>
     </nav>
     <h2>Daftar</h2>
-    <form action="daftar.php" method="post">
+    <form action="daftar.php" method="POST">
         <table>
             <tr>
+                <td>
+                    <label for="nim">NIM</label>
+                </td>
                 <td>
                     <input type="number" name="nim" id="nim" placeholder="Nim...">
                 </td>
             </tr>
             <tr>
                 <td>
+                    <label for="nama">Nama</label>
+                </td>
+                <td>
                     <input type="text" name="nama" id="nama" placeholder="Nama...">
                 </td>
             </tr>
             <tr>
+                <td>
+                    <label for="pass">Password</label>
+                </td>
                 <td>
                     <input type="password" name="pass" id="pass" placeholder="Password...">
                 </td>
             </tr>
             <tr>
                 <td>
-                <select name="radio" id="radio-dropdown"><br>
-                    <option value="L">Laki-laki</option>
-                    <option value="P">Perempuan</option>
-                </select>
+                    <label for="gender">Jenis Kelamin(L/P)</label>
+                </td>
+                <td>
+                    <input type="text" name="gender" id="gender" placeholder="Jenis Kelamin...">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat..."><br>
+                    <label for="alamat">Alamat</label>
+                </td>
+                <td>
+                    <input type="text" name="alamat" id="alamat" placeholder="Alamat..."><br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button type="submit" value="daftar">Daftar</button>
+                    <label for="tgl_lahir">Tanggal Lahir</label>
+                </td>
+                <td>
+                    <input type="date" name="tgl_lahir">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" name="submit" value="daftar">Daftar</button>
                 </td>
             </tr>
         </table>
-
-    
-        
-        
-        
     </form>
 </body>
 </html>
