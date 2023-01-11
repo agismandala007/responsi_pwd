@@ -1,19 +1,16 @@
 <?php
-    include_once("koneksi.php")
+    include_once("../koneksi.php")
 
-    if (isset($_POST['Submit'])) {
-        // Variable untuk menampung data $_POST yang dikirimkan melalui form.
+    if (isset($_POST['daftar'])) {
         $nim = $_POST['nim'];
         $nama = $_POST['nama'];
         $jenis_kelamin = $_POST['jenis_kelamin'];
         $alamat = $_POST['alamat'];
         $tgl_lahir = $_POST['tgl_lahir'];
     
-        // Syntax untuk menambahkan data ke table mahasiswa
-        $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass) VALUES ($nim, $nama, $jenis_kelamin, $alamat, $tgl_lahir, $pass)");
+        $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass, level) VALUES ($nim, $nama, $jenis_kelamin, $alamat, $tgl_lahir, $pass, 'Mahasiswa')");
     
-        // Menampilkan pesan jika data berhasil disimpan.
-        echo "Data berhasil disimpan. <a href='index.php'>View Users</a>";
+        echo "Data berhasil disimpan. <a href='../index.html'>Login</a>";
         exit();
     }
 ?>
@@ -31,7 +28,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="login.php">Home</a>
+    <a href="../index.html">Home</a>
     <h2>Daftar</h2>
     <form action="daftar.php" method="post">
         <input type="number" name="nim" id="nim" placeholder="Nim...">
@@ -42,7 +39,7 @@
             <option value="P">Perempuan</option>
         </select>
         <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat..."><br>
-        <button type="submit">Daftar</button>
+        <button type="submit" value="daftar">Daftar</button>
     </form>
 </body>
 </html>

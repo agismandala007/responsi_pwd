@@ -1,6 +1,5 @@
 <?php
-    include_once("koneksi.php");
-
+    include_once("../koneksi.php");
 
     if (isset($_POST['update'])) {
         $id = $_POST['id'];
@@ -11,18 +10,28 @@
 
         $result = mysqli_query($conn, "UPDATE mahasiswa SET nama='$nama',jenis_kelamin='$jenis_kelamin',alamat='$alamat',tgl_lahir='$tgl_lahir' WHERE id='$id'");
 
-        header("Location: index.php");
+        header("Location: ../home/homeadmin.php");
+    }
+    $id = $_GET['id'];
+
+    $result = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE id='$id'");
+    while ($user_data = mysqli_fetch_array($result)) {
+        $nim = $user_data['nim'];
+        $nama = $user_data['nama'];
+        $jenis_kelamin = $user_data['jenis_kelamin'];
+        $alamat = $user_data['alamat'];
+        $tgl_lahir = $user_data['tgl_lahir'];
     }
 ?>
 
 <html>
 
 <head>
-    <title>Edit KRS</title>
+    <title>Edit Data Mahasiswa</title>
 </head>
 
 <body>
-    <a href="index.php">Home</a>
+    <a href="../home/homeadmin.php">Home</a>
     <br /><br />
     <form name="update_mahasiswa" method="post" action="edit.php">
         <table border="0">
@@ -31,7 +40,7 @@
                 <td><input type="text" name="nama" value=<?php echo $nama; ?>></td>
             </tr>
             <tr>
-                <td>Gender</td>
+                <td>Gender (L/P)</td>
                 <td><input type="text" name="jenis_kelamin" maxlength="1" value=<?php echo $jenis_kelamin; ?>></td>
             </tr>
             <tr>
