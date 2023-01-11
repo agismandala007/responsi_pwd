@@ -1,18 +1,7 @@
 <?php
     include_once("../koneksi.php")
 
-    if (isset($_POST['daftar'])) {
-        $nim = $_POST['nim'];
-        $nama = $_POST['nama'];
-        $jenis_kelamin = $_POST['jenis_kelamin'];
-        $alamat = $_POST['alamat'];
-        $tgl_lahir = $_POST['tgl_lahir'];
-    
-        $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass, level) VALUES ($nim, $nama, $jenis_kelamin, $alamat, $tgl_lahir, $pass, 'Mahasiswa')");
-    
-        echo "Data berhasil disimpan. <a href='../index.html'>Login</a>";
-        exit();
-    }
+
 ?>
 
 
@@ -22,24 +11,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
     <title>Document</title>
 </head>
 <body>
-    <a href="../index.html">Home</a>
+    <nav class="navbar navbar-expand-lg text-bg-warning p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home/homeadmin.php">Universitas Alim Sukses</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
+        <form class="d-flex" role="search">
+            <a href="../index.php" class="btn btn-primary">Home</a>
+        </form>
+        </div>
+    </div>
+    </nav>
     <h2>Daftar</h2>
     <form action="daftar.php" method="post">
-        <input type="number" name="nim" id="nim" placeholder="Nim...">
-        <input type="text" name="nama" id="nama" placeholder="Nama...">
-        <input type="text">
-        <select name="radio" id="radio-dropdown"><br>
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
-        </select>
-        <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat..."><br>
-        <button type="submit" value="daftar">Daftar</button>
+        <table>
+            <tr>
+                <td>
+                    <input type="number" name="nim" id="nim" placeholder="Nim...">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="nama" id="nama" placeholder="Nama...">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" name="pass" id="pass" placeholder="Password...">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <select name="radio" id="radio-dropdown"><br>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="input_alamat" id="input_alamat" placeholder="Alamat..."><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" value="daftar">Daftar</button>
+                </td>
+            </tr>
+        </table>
+
+    
+        
+        
+        
     </form>
 </body>
 </html>

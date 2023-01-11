@@ -11,9 +11,9 @@
         $user_data = mysqli_fetch_array($result);
         if($user_data['pass'] == $pass){
             $_SESSION['id'] = $user_data['id'];
-            if($user_data['level'] == "Admin"){
+            if($user_data['level_akun'] == "Admin"){
                 header("Location: home/homeadmin.php");
-            }elseif($user_data['level'] == "Mahasiswa"){
+            }elseif($user_data['level_akun'] == "Mahasiswa"){
                 header("Location: home/homeuser.php");
             }
             

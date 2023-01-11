@@ -30,10 +30,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
-        <form class="d-flex justify-content-end" role="search">
+        <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Pencarian Mahasiswa" aria-label="Search">
             <button class="btn btn-outline-dark me-2" type="submit">Search</button>
-            <a href="../action/logout.php" class="btn btn-danger">Logout</a>
+            <a href="../action/logout.php" class="btn btn-primary">Logout</a>
         </form>
         </div>
     </div>
@@ -64,6 +64,9 @@
                         echo "<td><a class='btn btn-primary' href='../action/edit.php?id=$user_krs[id]'>Edit </a> | <a class='btn btn-primary' href='../action/delete.php?id=$user_krs[id]'>Delete</a></td></tr>";
                     }
                 ?>
+            <tr>
+                <td colspan="6"><a class="btn btn-primary" href="../action/tambahuser.php">Tambah Akun</a></td>
+            </tr>
         </table>
  
 </body>
