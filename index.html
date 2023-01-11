@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Akademik UAS</title>
+</head>
+<body>
+    <a href="daftar.php">Daftar</a>
+    <div>
+        <h2>Login</h2>
+        <form action="validasi.php" method="POST">
+            <table border="0px">
+                <tr>
+                    <td>NIM</td>
+                    <td><input type="number" name="nim" id="nim" placeholder="Nim..."></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" id="password" placeholder="Password..."></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <img src="captcha.php">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="text" name="captha_code" id="captha_code" placeholder="Captcha...">  
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Login">
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
+            
+        </form>
+    </div>
+
+</body>
+</html>
