@@ -32,6 +32,9 @@
             align-items: center;
         }
     </style>
+    <script>
+        function newDoc(a){}
+    </script>
 </head>
 
 <body>
@@ -70,7 +73,10 @@
                             echo "<td>" . $user_krs['jenis_kelamin'] . "</td>";
                             echo "<td>" . $user_krs['alamat'] . "</td>";
                             echo "<td>" . $user_krs['tgl_lahir'] . "</td>";
-                            echo "<td><a class='btn btn-primary' href='../action/edit.php?id=$user_krs[id]'>Edit </a> | <a class='btn btn-primary' href='../action/delete.php?id=$user_krs[id]'>Delete</a></td></tr>";
+                            ?>
+
+                            <td><a class='btn btn-primary' href="<?php echo '../action/edit.php?id='. $user_krs['id']; ?>">Edit </a> | <a class='btn btn-primary' onclick="newDoc('<?php echo $user_krs['id']; ?>')" >Delete</a></td></tr>
+                            <?php
                         }
                     }else{
                         echo "<tr><td colspan='6' align='center'> Data Tidak Ditemukan!!! </td></tr>";
@@ -82,6 +88,14 @@
             </tr>
         </table>
     </div>
+    <script>
+        function newDoc(a){
+            alert("Apakah anda ingin menghapus barang?");
+            window.location.href="../action/delete.php?id=" + a ;  
+        }
+
+    </script>
 </body>
+
 
 </html>
