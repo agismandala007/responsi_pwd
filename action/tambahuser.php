@@ -18,7 +18,7 @@
         $jenis_kelamin = $_POST['gender'];
         $alamat = $_POST['alamat'];
         $tgl_lahir = $_POST['tgl_lahir'];
-        $level = "Mahasiswa";
+        $level = $_POST['level_akun'];
     
         $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass, level_akun) VALUES ('$nim', '$nama', '$jenis_kelamin', '$alamat', '$tgl_lahir', '$pass', '$level')");
         ?>
@@ -138,7 +138,11 @@
                     <label for="level_akun">Level Akun (Admin/Mahasiswa)</label>
                 </td>
                 <td>
-                    <input type="text" name="level_akun" id="level_akun" placeholder="Mahasiswa/Admin">
+                    <select name="level_akun" id="level_akun">
+                        <option value="Mahasiswa">Mahasiswa</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <!-- <input type="text" name="level_akun" id="level_akun" placeholder="Mahasiswa/Admin"> -->
                 </td>
             </tr>
             <tr style="text-align: right;">
