@@ -12,9 +12,14 @@
         $level = "Mahasiswa";
     
         $result = mysqli_query($conn, "INSERT INTO mahasiswa (nim, nama, jenis_kelamin, alamat, tgl_lahir, pass, level_akun) VALUES ('$nim', '$nama', '$jenis_kelamin', '$alamat', '$tgl_lahir', '$pass', '$level')");
-        echo "Data berhasil disimpan. <a href='../index.html'>Login</a>";
-    }
+        ?>
+        <script>
+            alert("Data berhasil disimpan");
+            window.location.href="../index.html";  
+        </script>
 
+        <?php
+    }
 ?>
 
 

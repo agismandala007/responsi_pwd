@@ -6,7 +6,7 @@
         header("Location: index.php");
     }else{
         $id = $_SESSION['id'];
-        $krs = mysqli_query($conn, "SELECT mata_kuliah.kode, mata_kuliah.nama, mata_kuliah.sks, mata_kuliah.sem, khs.nilai FROM khs INNER JOIN mahasiswa ON mahasiswa.id = khs.id_mhs INNER JOIN mata_kuliah ON khs.id_matkul = mata_kuliah.id WHERE mahasiswa.id = $id");
+        $krs = mysqli_query($conn, "SELECT mata_kuliah.kode, mata_kuliah.nama, mata_kuliah.sks, mata_kuliah.sem, khs.nilai, khs.id FROM khs INNER JOIN mahasiswa ON mahasiswa.id = khs.id_mhs INNER JOIN mata_kuliah ON khs.id_matkul = mata_kuliah.id WHERE mahasiswa.id = $id");
         $info = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE id = $id");
         $user = mysqli_fetch_array($info);
     }    
@@ -24,52 +24,80 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg text-bg-warning p-3">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Universitas Alim Sukses</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        </ul>
-        <form class="d-flex justify-content-end" role="search">
-            <input class="form-control me-2" type="search" placeholder="Pencarian Mahasiswa" aria-label="Search">
-            <button class="btn btn-outline-dark me-2" type="submit">Search</button>
-            <a href="logout.php" class="btn btn-danger">Logout</a>
-        </form>
-        </div>
-    </div>
-    </nav>
+<header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/home/homeadmin.php">Universitas Alim Sukses</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+                </li>
+                <li class="nav-item">
+                  <!-- <a class="nav-link" href="#">Link</a> -->
+                </li>
+                <li class="nav-item">
+                  <!-- <a class="nav-link disabled">Disabled</a> -->
+                </li>
+              </ul>
+                <!-- Button trigger modal -->
+                <form class="d-flex" role="search" action="homeadmin.php" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"> 
+                    <button class="btn btn-outline-success me-2" type="submit">Search</button>
+                    <a href="../action/logout.php" class="btn btn-outline-success">Logout</a>
+                </form>
+            </div>
+          </div>
+        </nav>
+    </header>
         <!-- <a href="tambah.php">Tambah Data Baru</a> | <a href="cetak_mhs.php">Cetak Mahasiswa</a><br /><br /><br /><br /> -->
         <!-- <a href="index.php">Logout</a> -->
         <?php 
             echo "<h2> Nim : " . $user['nim'] . "<h2>";
             echo "<h2> Nama : " . $user['nama'] . "<h2>";
         ?>
-        <table border="1px">
+        <table class="table table-bordered">
             <tr>
                 <th>Kode</th>
                 <th>Matkul</th>
                 <th>SKS</th>
                 <th>Semester</th>
                 <th>Nilai</th>
-                <!-- <th>Action</th> -->
+                <th>Action</th>
             </tr>
                 <?php
+                if(mysqli_num_rows($krs) > 0){
                     while($user_krs = mysqli_fetch_array($krs)){
                         echo "<tr><td>" . $user_krs['kode'] . "</td>";
                         echo "<td>" . $user_krs['nama'] . "</td>";
                         echo "<td>" . $user_krs['sks'] . "</td>";
                         echo "<td>" . $user_krs['sem'] . "</td>";
-                        echo "<td>" . $user_krs['nilai'] . "</td></tr>";
+                        echo "<td>" . $user_krs['nilai'] . "</td>";
+                        ?>
+
+                            <td><a class='btn btn-primary' onclick="newDoc('<?php echo $user_krs['id']; ?>', '<?php echo $user_krs['nama']; ?>')" >Delete</a></td></tr>
+                         <?php
                     }
+                }else{
+                    echo "<tr><td colspan='6' align='center'> Data Tidak Ditemukan!!! </td></tr>";
+                }
                 ?>
         </table>
         <?php
-            echo "<a href='action/cetak.php?nim=$nim'> Cetak KRS</a>";
+            echo "<a href='../action/tambahkrs.php?id=$id' class='btn btn-primary me-2'>Tambah KRS</a><a href='../action/cetak.php?id=$id' class='btn btn-primary'> Cetak KRS</a>";
         ?>
- 
+        <script>
+        function newDoc(a, nama){
+            if(confirm("Apakah anda ingin menghapus " + nama + "?")){
+                window.location.href="../action/deletekrs.php?id=" + a ; 
+            }
+                 
+        }
+
+    </script>
 </body>
 
 </html>

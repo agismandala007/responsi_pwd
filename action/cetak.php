@@ -1,10 +1,10 @@
 <?php
 // memanggil library FPDF
-require('fpdf/fpdf.php');
-include 'koneksi.php';
-$nim = $_GET['nim'];
+require('../fpdf/fpdf.php');
+include '../koneksi.php';
+$id= $_GET['id'];
 
-$sql = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE nim = $nim");
+$sql = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE id = $id");
 $user = mysqli_fetch_array($sql);
 
 // intance object dan memberikan pengaturan halaman PDF
@@ -41,7 +41,7 @@ $pdf->SetFont('Arial', '', 10);
 
 
 
-    $krs = mysqli_query($conn, "SELECT mata_kuliah.kode, mata_kuliah.nama, mata_kuliah.sks, mata_kuliah.sem, khs.nilai FROM khs INNER JOIN mahasiswa ON mahasiswa.id = khs.id_mhs INNER JOIN mata_kuliah ON khs.id_matkul = mata_kuliah.id WHERE mahasiswa.nim = $nim");
+    $krs = mysqli_query($conn, "SELECT mata_kuliah.kode, mata_kuliah.nama, mata_kuliah.sks, mata_kuliah.sem, khs.nilai FROM khs INNER JOIN mahasiswa ON mahasiswa.id = khs.id_mhs INNER JOIN mata_kuliah ON khs.id_matkul = mata_kuliah.id WHERE mahasiswa.id = $id ");
 
 while ($row = mysqli_fetch_array($krs)) {
     $pdf->Cell(20, 6, $row['kode'], 1, 0);
