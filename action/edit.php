@@ -37,22 +37,22 @@
         <table border="0">
             <tr>
                 <td>Nama</td>
-                <td><input type="text" name="nama" value=<?php echo $nama; ?>></td>
+                <td><input type="text" name="nama" value="<?php echo $nama; ?>"></td>
             </tr>
             <tr>
                 <td>Gender (L/P)</td>
-                <td><input type="text" name="jenis_kelamin" maxlength="1" value=<?php echo $jenis_kelamin; ?>></td>
+                <td><input type="text" name="jenis_kelamin" maxlength="1" value="<?php echo $jenis_kelamin; ?>"></td>
             </tr>
             <tr>
                 <td>alamat</td>
-                <td><input type="text" name="alamat" value=<?php echo $alamat; ?>></td>
+                <td><input type="text" name="alamat" value="<?php echo $alamat; ?>"></td>
             </tr>
             <tr>
                 <td>Tgl Lahir</td>
-                <td><input type="date" name="tgl_lahir" value=<?php echo $tgl_lahir; ?>></td>
+                <td><input type="date" name="tgl_lahir" value="<?php echo $tgl_lahir; ?>"></td>
             </tr>
             <tr>
-                <td><input type="hidden" name="id" value=<?php echo $id ?>></td>
+                <td><input type="hidden" name="id" value="<?php echo $id ?>"></td>
                 <td><input type="submit" name="update" value="Update"></td>
             </tr>
         </table>

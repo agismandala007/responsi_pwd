@@ -1,59 +1,110 @@
 <?php
-// Memanggil file koneksi.php
-include_once("koneksi.php");
+    include_once("../koneksi.php");
+    session_start();
+    $id = $_SESSION['id'];
+    
+    if (isset($_POST['submit'])){
+        if(!empty($_POST['matkul'])){
+            
+            $matkul = $_POST['matkul'];
+            $nilai = "-";
 
-// Perkondisian untuk mengecek apakah tombol submit sudah ditekan.
-if (isset($_POST['Submit'])) {
-    // Variable untuk menampung data $_POST yang dikirimkan melalui form.
-    $nim = $_POST['nim'];
-    $nama = $_POST['nama'];
-    $jenis_kelamin = $_POST['jenis_kelamin'];
-    $alamat = $_POST['alamat'];
-    $tgl_lahir = $_POST['tgl_lahir'];
+            foreach($matkul as $mk){
+                $insert = mysqli_query($conn, "INSERT INTO khs (id_mhs, id_matkul, nilai) VALUES ('$id', '$mk', '$nilai')");
+            }
+            ?>
+            <script>
+                alert("Data berhasil disimpan");
+                window.location.href="../home/homeuser.php?id=" + <?php echo $id; ?>; 
+            </script>
 
-    // Syntax untuk menambahkan data ke table mahasiswa
-    $result = mysqli_query($con, "INSERT INTO krs(id_mhs, id_matkul, nilai) VALUES('$nim','$nama', '$jenis_kelamin','$alamat','$tgl_lahir')");
+            <?php
+            
+        }
+    }else{
+        // $khs = mysqli_query($conn, "SELECT * FROM mata_kuliah");
+        // $khs = mysqli_query($conn, "SELECT mata_kuliah.id, mata_kuliah.nama, mata_kuliah.sem, mata_kuliah.sks, khs.id_matkul, khs.id_mhs FROM khs LEFT JOIN mata_kuliah ON mata_kuliah.id = khs.id_matkul WHERE khs.id_mhs = $id ");
+            $khs = mysqli_query($conn, "SELECT * FROM mata_kuliah WHERE id NOT IN (SELECT id_matkul FROM khs WHERE id_mhs = $id)");
+    }
 
-    // Menampilkan pesan jika data berhasil disimpan.
-    echo "Data berhasil disimpan. <a href='login.php'>Home</a>";
-    exit();
-}
+
+
 ?>
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
     <title>Tambah data mahasiswa</title>
 </head>
 
 <body>
-    <a href="login.php">Back Home</a>
-    <br /><br />
-    <form action="tambahkrs.php" method="post" name="form1">
-        <table width="25%" border="0">
+<header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">''
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/home/homeadmin.php">Universitas Alim Sukses</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+                </li>
+                <li class="nav-item">
+                  <!-- <a class="nav-link" href="#">Link</a> -->
+                </li>
+                <li class="nav-item">
+                  <!-- <a class="nav-link disabled">Disabled</a> -->
+                </li>
+              </ul>
+                <!-- Button trigger modal -->
+                <form class="d-flex" role="search" action="homeadmin.php" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"> 
+                    <button class="btn btn-outline-success me-2" type="submit">Search</button>
+                    <a href="../action/logout.php" class="btn btn-outline-success">Logout</a>
+                </form>
+            </div>
+          </div>
+        </nav>
+    </header>
+    <form action="<?php echo 'tambahkrs.php?id=' . $_SESSION['id'] ?>" method="POST">
+        <table class="table table-bordered w-75 m-auto">
             <tr>
-                <td>NIM</td>
-                <td><input type="number" name="nim"></td>
+                <th></th>
+                <th>Mata Kuliah</th>
+                <th>Semester</th>
+                <th>SKS</th>
             </tr>
-            <tr>
-                <td>Nama</td>
-                <td><input type="text" name="nama"></td>
-            </tr>
-            <tr>
-                <td>Jenis Kelamin (L/P)</td>
-                <td><input type="text" name="jenis_kelamin" maxlength="1"></td>
-            </tr>
-            <tr>
-                <td>Alamat</td>
-                <td><input type="text" name="alamat"></td>
-            </tr>
-            <tr>
-                <td>Tgl Lahir</td>
-                <td><input type="date" name="tgl_lahir"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" name="Submit" value="Tambah"></td>
-            </tr>
+        
+
+        <?php
+            while($matkul = mysqli_fetch_array($khs)){
+                ?>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="matkul[]" value="<?php echo $matkul['id']; ?>">
+                    </td>
+                    <td>
+                        <?php echo $matkul['nama']; ?>
+                    </td>
+                    <td>
+                        <?php echo $matkul['sem']; ?>
+                    </td>
+                    <td>
+                        <?php echo $matkul['sks']; ?>
+                    </td>
+                </tr>
+                
+                <?php
+            }
+        ?>
+        <tr>
+            <td colspan=4 style="text-align: right;"><input type="submit" name="submit" value="Tambah" class="btn btn-primary"></td>
+        </tr>
         </table>
     </form>
 </body>
